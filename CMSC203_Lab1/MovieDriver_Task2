@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+
+public class MovieDriver_Task2 {
+	
+	public static void main(String[] args) {
+		
+		String again = "y";
+		do {
+			Scanner key = new Scanner(System.in);
+			Movie movie = new Movie();
+			
+			System.out.println("Enter the name of the movie");
+			String name = key.nextLine();
+			movie.setTitle(name);
+			
+			System.out.println("Enter the rating of the movie");
+			String rating = key.nextLine();
+			movie.setRating(rating);
+			
+			System.out.println("Enter the number of tickets sold for this movie");
+			int tickets = key.nextInt();
+			movie.setSoldTickets(tickets);
+			
+			System.out.println(movie);
+			System.out.println("Do you want to enter another? (y/n)");
+			again = "";
+			key.nextLine();
+			again = key.nextLine();
+			
+			
+		}while(again.equals("y"));
+		
+		
+		System.out.println("Goodbye");
+	
+	}
+}
