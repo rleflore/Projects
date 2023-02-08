@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+
+public class MovieDriver_Task1 {
+	
+	public static void main(String[] args) {
+		Scanner key = new Scanner(System.in);
+		Movie movie = new Movie();
+		
+		System.out.println("Enter the name of the movie");
+		String name = key.nextLine();
+		movie.setTitle(name);
+		
+		System.out.println("Enter the rating of the movie");
+		String rating = key.nextLine();
+		movie.setRating(rating);
+		
+		System.out.println("Enter the number of tickets sold for this movie");
+		int tickets = key.nextInt();
+		movie.setSoldTickets(tickets);
+		
+		System.out.println("Goodbye");
+	
+	}
+}
