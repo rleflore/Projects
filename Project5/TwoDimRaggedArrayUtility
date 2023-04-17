@@ -1,0 +1,199 @@
+/*
+ * Class: CMSC203 CRN: 33115
+ * Instructor: Professor Grinberg
+ * Description: Methods to manipulate/retrieve elements of of ragged two dim array
+ * Due: 4/17/22
+ * Platform/compiler: Windows
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Rose LeFlore
+*/
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+public class TwoDimRaggedArrayUtility {
+	
+	public static double[][] readFile(File file) throws FileNotFoundException {
+        Scanner sc = new Scanner(file);
+        int numRows = 0;
+        
+        while (sc.hasNextLine()) {
+            numRows++;
+            sc.nextLine();
+        }
+        sc.close();
+
+        double[][] array = new double[numRows][];
+        sc = new Scanner(file);
+        
+        for (int i = 0; i < numRows; i++) {
+            String[] line = sc.nextLine().split(" ");
+            array[i] = new double[line.length];
+            for (int j = 0; j < line.length; j++) {
+                array[i][j] = Double.parseDouble(line[j]);
+            }
+        }
+        sc.close();
+
+        return array;
+		
+	}
+	
+	public static void writeToFile(double[][] arr, File file) throws FileNotFoundException {
+		
+		PrintWriter printWriter = new PrintWriter(file);
+	       for (int i = 0; i < arr.length; i++) {
+	            for (int j = 0; j < arr[i].length; j++) {
+	                printWriter.print(arr[i][j] + " ");
+	            }
+	            printWriter.println();
+	        }
+	        printWriter.close();		
+		
+	}
+	
+    public static double getTotal(double[][] array) {
+        double total = 0.0;
+        for (double[] row : array) {
+            for (double element : row) {
+                total += element;
+            }
+        }
+        return total;
+    }
+    
+    public static double getAverage(double[][] array) {
+        double total = getTotal(array);
+        int numElements = 0;
+        for (double[] row : array) {
+            numElements += row.length;
+        }
+        return total / numElements;
+    }
+    
+    public static double getRowTotal(double[][] array, int rowIndex) {
+        double total = 0.0;
+        for (double element : array[rowIndex]) {
+            total += element;
+        }
+        return total;
+    }
+    
+    public static double getColumnTotal(double[][] array, int columnIndex) {
+        double total = 0.0;
+        for (double[] row : array) {
+            if (columnIndex < row.length) {
+                total += row[columnIndex];
+            }
+        }
+        return total;
+    }
+    
+    public static double getHighestInRow(double[][] array, int rowIndex) {
+        double highest = array[0][0];
+        for (double element : array[rowIndex]) {
+            if (element > highest) {
+                highest = element;
+            }
+        }
+        return highest;
+    }
+    
+    public static int getHighestInRowIndex(double[][] array, int rowIndex) {
+        double highest = array[0][0];
+        int highestIndex = 0;
+        for (int i = 0; i < array[rowIndex].length; i++) {
+            if (array[rowIndex][i] > highest) {
+                highest = array[rowIndex][i];
+                highestIndex = i;
+            }
+        }
+        return highestIndex;
+    }
+    
+    public static double getLowestInRow(double[][] array, int rowIndex) {
+        double lowest = array[0][0];
+        for (double element : array[rowIndex]) {
+            if (element < lowest) {
+                lowest = element;
+            }
+        }
+        return lowest;
+    }
+    
+    public static double getHighestInColumn(double[][] array, int column) {
+        double highest = array[0][0];
+        for (double[] row : array) {
+            if (column < row.length && row[column] > highest) {
+                highest = row[column];
+            }
+        }
+        return highest;
+    }
+    
+    public static int getHighestInColumnIndex(double[][] array, int column) {
+    	int highest = 0;
+    	for (int i = 0; i < array.length; i++){
+    		if (array[i].length > column){
+    			if (array[i][column] > array[highest][column]) {
+    				highest = i;
+    			}
+    		}
+    	}
+    	return highest;
+    }
+	
+    public static double getLowestInColumn(double[][] array, int column) {
+        double lowest = array[0][0];
+        for (double[] row : array) {
+            if (column < row.length && row[column] < lowest) {
+                lowest = row[column];
+            }
+        }
+        return lowest;
+    }
+    
+    public static int getLowestInColumnIndex(double[][] array, int column) {
+    	int highest_ind = 0;
+    	for (int i = 0; i < array.length; i++){
+    		if (array[i].length > column){
+    			if (array[i][column] < array[highest_ind][column]) {
+    				highest_ind = i;
+    			}
+    		}
+    	}   	
+    	return highest_ind;
+    }
+    
+    public static double getHighestInArray(double[][] array) {
+        double highest = array[0][0];
+        for (double[] row : array) {
+            for (double element : row) {
+                if (element > highest) {
+                    highest = element;
+                }
+            }
+        }
+        return highest;
+    }
+    
+    public static double getLowestInArray(double[][] array) {
+        double lowest = array[0][0];
+        for (double[] row : array) {
+            for (double element : row) {
+                if (element < lowest) {
+                    lowest = element;
+                }
+            }
+        }
+        return lowest;
+    }
+
+}
