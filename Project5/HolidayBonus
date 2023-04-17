@@ -1,0 +1,94 @@
+/*
+ * Class: CMSC203 CRN: 33115
+ * Instructor: Professor Grinberg
+ * Description: Calculates the bonuses based of the ragged two dim array
+ * Due: 4/17/22
+ * Platform/compiler: Windows
+ * I pledge that I have completed the programming 
+ * assignment independently. I have not copied the code 
+ * from a student or any source. I have not given my code 
+ * to any student.
+   Print your Name here: Rose LeFlore
+*/
+
+import javafx.scene.chart.PieChart.Data;
+
+public class HolidayBonus {
+	private static final double HIGH_SALE_BONUS = 5000;
+	private static final double LOWEST_SALE_BONUS = 1000;
+	private static final double OTHER_BONUS = 2000;
+	/**
+	 * Calculates the holiday bonus for each store
+	 * 
+	 * 
+	 * @param arr 2 dim array of store sales
+	 * @return array of the bonus for each store
+	 */
+	
+	public static double[] calculateHolidayBonus(double[][] arr) {
+		double[][] holidayBonusArr = new double[arr.length][];
+		
+		for (int i = 0; i < arr.length; i++) {		
+			holidayBonusArr[i] = new double[arr[i].length];
+		}
+
+		for (int j = 0; j < arr.length; j ++) {
+			for (int i = 0; i < arr[j].length; i++) {		
+				int highest = TwoDimRaggedArrayUtility.getHighestInColumnIndex(arr,j);
+				int lowest = TwoDimRaggedArrayUtility.getLowestInColumnIndex(arr,j);
+				holidayBonusArr[highest][j] = HIGH_SALE_BONUS;
+				holidayBonusArr[lowest][j] = LOWEST_SALE_BONUS;	
+			
+			}
+		}
+		
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				if (holidayBonusArr[i][j] == HIGH_SALE_BONUS ||holidayBonusArr[i][j] == LOWEST_SALE_BONUS) {
+					continue;
+				}
+				else if (arr[i][j] > 0){
+					holidayBonusArr[i][j] = OTHER_BONUS;
+				}
+				else {
+					holidayBonusArr[i][j] = 0;
+				}
+			}
+		}
+		
+		
+		//adding the bonuses of each row together
+		double[] bonuses = new double[arr.length];
+		
+		for (int i = 0; i < holidayBonusArr.length; i++) {
+			for (int j = 0; j < holidayBonusArr[i].length; j++) {
+				//System.out.println(holidayBonusArr[i][j]);
+				bonuses[i] += holidayBonusArr[i][j];
+			}
+		}
+		
+		return bonuses;
+          
+	}
+	
+	/**
+	 * Calculates the total holiday bonus for each store
+	 * 
+	 * 
+	 * @param arr 2 dim array of store sales
+	 * @return arr an int of the total bonuses
+	 */
+	public static double calculateTotalHolidayBonus(double[][] data){
+
+		double total = 0.0;
+		double[] bonuses = calculateHolidayBonus(data);
+		
+		for (int i = 0; i < bonuses.length; i++) {
+			total+= bonuses[i];
+		}
+		return total;
+	}
+
+	
+
+}
