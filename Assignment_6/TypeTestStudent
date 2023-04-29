@@ -1,0 +1,31 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class TypeTestStudent {
+	Type type1, type2;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		type1 = Type.ALCOHOL;
+		type2 = Type.COFFEE;
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		type1 = type2 = null;
+	}
+
+	@Test
+	void testEquals() {
+		assertTrue(!type1.equals(type2));
+	}
+	
+	@Test
+	void testToString() {
+		assertEquals("ALCOHOL", type1.toString());
+	}
+
+}
