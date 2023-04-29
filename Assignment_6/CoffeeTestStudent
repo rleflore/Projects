@@ -1,0 +1,45 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class CoffeeTestStudent {
+
+	Coffee coffee1, coffee2, coffee3;
+	
+	@BeforeEach
+	void setUp() throws Exception {
+		coffee1 = new Coffee("Cof_1", Size.SMALL, false, false);
+		coffee2 = new Coffee("Cof_2", Size.LARGE, true, true);
+		coffee3 = new Coffee("Cof_3", Size.SMALL, true, false);
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		coffee1 = coffee2 = coffee3 = null;
+	}
+
+	@Test
+	void testCalcPrice() {
+		assertEquals(1.0, coffee1.calcPrice(), .001);
+	}
+	
+	@Test
+	void testEquals() {
+		assertTrue(!coffee1.equals(coffee2));
+	}
+	
+	@Test
+	void testGetShot() {
+		assertTrue(coffee2.getShot());
+	}
+	
+	@Test
+	void testGetSyrup() {
+		assertTrue(coffee2.getSyrup());
+	}
+
+}
