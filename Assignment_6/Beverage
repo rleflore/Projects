@@ -1,0 +1,73 @@
+
+abstract public class Beverage {
+	private String name;
+	private Type type;
+	private Size size;
+	private final double BASE_PRICE = 2.0;
+	private final double SIZE_PRICE = 1.0;
+	
+	public Beverage(String name, Type type, Size size) {
+		this.name = name;
+		this.type = type;
+		this.size = size;
+	}
+	
+	public abstract double calcPrice();
+	
+	public String toString() {
+		return name + ", " + size;
+				
+	}
+	
+	public boolean equals(Beverage other) {
+		if (name.equals(other.name) && size.equals(other.size)&& type.equals(other.type)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Type getType() {
+		return type;
+	}
+	
+	public Size getSize() {
+		return size;
+	}
+	
+	public double getBasePrice() {
+		return BASE_PRICE;
+	}
+	
+	public double getSizePrice() {
+		return SIZE_PRICE;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setType(Type type) {
+		this.type = type;
+	}
+	
+	public void setSize(Size size) {
+		this.size = size;
+	}
+	
+	public double getSizePrice(Size size) {		
+		if (getSize() == Size.MEDIUM) {
+			return 2*SIZE_PRICE;
+		}
+		else if (getSize() == Size.LARGE) {
+			return 3*SIZE_PRICE;
+		}
+		return SIZE_PRICE;
+	}
+		
+	
+
+}
