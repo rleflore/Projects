@@ -1,0 +1,58 @@
+
+public class Smoothie extends Beverage{
+
+	private int fruits;
+	private boolean protein;
+	private final double COST_FRUITS = .50;
+	private final double COST_PROTIEN = 1.5;
+	
+	
+	public Smoothie(String name, Size size, int fruits, boolean protein) {
+		super(name, Type.SMOOTHIE, size);
+		this.fruits = fruits;
+		this.protein = protein;
+	}
+	
+	public String toString() {
+		String str = getName() + ", " + getSize() + ", " + fruits + " fruits";
+		
+		if (protein) {
+			str += ", with protein";
+		}
+		
+		
+		return str + ", $" + calcPrice();
+	}
+	
+	public boolean equals(Smoothie other) {
+		return (super.equals(other)&& other.getFruits() == fruits && other.getProtein() == protein);
+	}
+	
+	public int getFruits() {
+		return fruits;
+	}
+	
+	public boolean getProtein() {
+		return protein;
+	}
+	
+	public void setFruits(int fruits) {
+		this.fruits = fruits;
+	}
+	
+	public void setProtien(boolean protien) {
+		this.protein = protien;
+	}
+
+	@Override
+	public double calcPrice() {
+		double price = super.getSizePrice(super.getSize()) + fruits*COST_FRUITS;	
+		
+		if (protein) {
+			price += COST_PROTIEN;
+		}
+
+		return price;
+	}	
+
+}
