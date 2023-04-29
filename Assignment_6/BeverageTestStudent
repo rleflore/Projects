@@ -1,0 +1,56 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BeverageTestStudent {
+	 BevShop bevShop;
+	@BeforeEach
+	void setUp() throws Exception {
+		bevShop = new BevShop();
+		bevShop.startNewOrder(12, Day.SATURDAY, "George", 23);
+		bevShop.startNewOrder(16, Day.SUNDAY, "Lily", 44);
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		bevShop = null;
+	}
+
+	@Test
+	void testGetMaxNumOfFruits() {
+		assertEquals(5, bevShop.getMaxNumOfFruits(), .01);
+	}
+	
+	@Test
+	void testGetMinAgeForAlcohol() {
+		assertEquals(21, bevShop.getMinAgeForAlcohol(), .01);
+	}
+	
+	@Test
+	void testGetMaxOrderForAlcohol() {
+		assertEquals(3, bevShop.getMaxOrderForAlcohol(), .01);
+	}
+	
+	@Test
+	void testIsValidAge() {
+		assertTrue(bevShop.isValidAge(23));
+	}
+	
+	@Test
+	void testTotalOrderPrice() {
+		bevShop.processCoffeeOrder("Bev_1", Size.LARGE, false, true);
+		bevShop.processAlcoholOrder("Bev_2", Size.LARGE);
+		assertEquals(6.5, bevShop.totalOrderPrice(0), .01);
+		
+	}
+	
+	
+
+	
+	
+
+}
