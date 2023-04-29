@@ -1,0 +1,142 @@
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Order implements OrderInterface, Comparable{
+	private int orderNum; 
+	private int orderTime; 
+	private Day orderDay;
+	private Customer customer;
+	private ArrayList<Beverage> beverages;
+	
+	
+	public Order(int orderTime, Day day, Customer customer) {
+		beverages = new ArrayList<Beverage>();
+		this.orderTime = orderTime;
+		orderDay = day;
+		this.customer = customer;
+		orderNum = genOrderNum();
+	}
+	
+	public int genOrderNum() {
+		Random rand = new Random();
+		return rand.nextInt(90_000 - 10_000) +10_000;		
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		if (orderNum == ((Order) o).getOrderNum()) {
+			return 0;
+		}
+		else if (orderNum > ((Order) o).getOrderNum()){
+			return 1;
+		}
+		return -1;
+	}
+
+	@Override
+	public boolean isWeekend() {
+		return (orderDay == Day.SATURDAY || orderDay == Day.SUNDAY);
+	}
+
+	@Override
+	public Beverage getBeverage(int itemNo) {
+		return beverages.get(itemNo);
+	}
+
+	@Override
+	//coffee
+	public void addNewBeverage(String bevName, Size size, boolean extraShot, boolean extraSyrup) {
+		Coffee coffee = new Coffee(bevName, size, extraShot, extraSyrup); 
+		beverages.add(coffee);
+		
+	}
+
+	@Override
+	//alcohol
+	public void addNewBeverage(String bevName, Size size) {	
+		Alcohol alcohol = new Alcohol(bevName, size, isWeekend());
+		beverages.add(alcohol);
+		
+	}
+
+	@Override
+	//smoothie
+	public void addNewBeverage(String bevName, Size size, int numOfFruits, boolean addProtein) {
+		Smoothie smoothie = new Smoothie(bevName, size, numOfFruits, addProtein);
+		beverages.add(smoothie);
+		
+	}
+
+	@Override
+	public double calcOrderTotal() {
+		double total = 0.0;
+		for (Beverage b: beverages) {
+			total += b.calcPrice();
+		}
+		return total;
+	}
+
+	@Override
+	public int findNumOfBeveType(Type type) {
+		int num = 0;
+		for (Beverage b : beverages) {
+			if (b.getType() == type) {
+				num++;
+			}
+		}
+		return num;
+	}
+	
+	public String toString() {
+		String str = "";
+		str += "Order Num: " + orderNum + ", Time: " + orderTime + " , Day: " + orderDay + ", Name: " + customer.getName() + ", Age: " + customer.getAge();
+		
+		for (Beverage b : beverages) {
+			str += b.toString() + "\n--------";
+		}
+		return str;		
+	}
+	
+	//getters
+	public int getOrderNum() {
+		return orderNum;
+	}
+	
+	public int getOrderTime() {
+		return orderTime;
+	}
+	
+	public Day getOrderDay(){
+		return orderDay;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+	
+	public ArrayList<Beverage> getBeverages(){
+		return beverages;
+	}
+	
+	public int getNumBeverages() {
+		return beverages.size();
+	}
+	
+	//setters
+	public void setOrderNum(int num) {
+		orderNum = num;	
+	}
+	
+	public void setOrderTime(int time) {
+		orderTime = time;
+	}
+	
+	public void setOrderDay(Day day) {
+		orderDay = day;
+	}
+	
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+}
