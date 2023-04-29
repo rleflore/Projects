@@ -1,0 +1,33 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class DayTestStudent {
+	
+	Day day1, day2, day3;
+	@BeforeEach
+	void setUp() throws Exception {
+		day1 = Day.SATURDAY;
+		day2 = Day.SUNDAY;
+		day3 = Day.SATURDAY;
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		day1 = day2 = null;
+	}
+
+	@Test
+	void testEquals() {
+		assertTrue(day1.equals(day3));
+	}
+	
+	@Test
+	void testToString() {
+		assertEquals("SATURDAY", day1.toString());
+	}
+
+
+}
