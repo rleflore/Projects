@@ -1,0 +1,76 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BevShopTestStudent {
+	BevShop bev;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		bev = new BevShop();
+		bev.startNewOrder(12, Day.SATURDAY, "George", 20);
+		bev.processCoffeeOrder("bev1", Size.SMALL, false, false);
+		
+		bev.startNewOrder(15, Day.SATURDAY, "Lily", 29);
+		bev.processCoffeeOrder("bev2", Size.LARGE, false, false);
+		
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		bev = null;
+	}
+
+	@Test
+	void testGetMaxNumOfFruits() {
+		assertEquals(5, bev.getMaxNumOfFruits(), .01);
+	}
+	
+	@Test
+	void testGetMinAgeForAlcohol() {
+		assertEquals(21, bev.getMinAgeForAlcohol(), .01);
+	}
+	
+	@Test
+	void testIsMaxFruit() {
+		assertTrue(bev.isMaxFruit(23));
+	}
+	
+	@Test
+	void testGetMaxOrderForAlcohol() {
+		assertEquals(3, bev.getMaxOrderForAlcohol(), .01);
+	}
+	
+	@Test
+	void testIsEligibleForMore() {
+		assertTrue(!bev.isEligibleForMore());
+	}
+	
+	@Test
+	void testIsValidAge() {
+		assertTrue(bev.isValidAge(24));
+	}
+	
+	@Test
+	void testTotalOrderPrice() {
+		assertEquals(1, bev.totalOrderPrice(0), .01);
+	}
+	
+	@Test
+	void testTotalMonthlySale() {
+		assertEquals(4, bev.totalMonthlySale(), .01);
+	}
+	
+	@Test
+	void tesTotalNumOfMonthlyOrders() {
+		assertEquals(2, bev.totalNumOfMonthlyOrders(), .01);
+	}
+	
+	
+	
+	
+	
+
+}
