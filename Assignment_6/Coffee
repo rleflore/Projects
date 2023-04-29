@@ -1,0 +1,62 @@
+
+public class Coffee extends Beverage{
+	private boolean shot;
+	private boolean syrup;
+	private final double SHOT_COST = .5;
+	private final double SYRUP_COST = .5;
+	
+	public Coffee(String name, Size size, boolean shot, boolean syrup) {
+		super(name, Type.COFFEE, size);
+		this.shot = shot;
+		this.syrup = syrup;
+	}
+	
+	public String toString() {
+		String str = "";
+		str = super.getName() + ", " + super.getSize();
+		System.out.println(super.getName());
+		
+		if (shot) {
+			str += ", Extra shot"; 
+		}
+		if (syrup) {
+			str += ", Extra syrup";
+		}
+		
+		return str + ", $" + calcPrice();
+	}
+
+	@Override
+	public double calcPrice() {
+		double price = super.getSizePrice(super.getSize());		
+		
+		if (shot) {
+			price += SHOT_COST;
+		}
+		else if(syrup) {
+			price += SYRUP_COST;
+		}
+		
+		return price;
+	}
+	
+	public boolean equals(Coffee other) {
+		return (super.equals(other) && shot==other.getShot() && syrup ==other.getSyrup());
+	}
+	
+	public boolean getShot() {
+		return shot;
+	}
+	
+	public boolean getSyrup() {
+		return syrup;
+	}
+	
+	public void setShot(boolean shot) {
+		this.shot = shot;
+	}
+	
+	public void setSyrup(boolean syrup) {
+		this.syrup = syrup;
+	}
+}
