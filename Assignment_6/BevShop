@@ -1,0 +1,139 @@
+import java.util.ArrayList;
+
+public class BevShop implements BevShopInterface{
+	private ArrayList<Order> orders;
+	private int numAlcoholDrinks; 
+	private int currentOrder;
+	
+	
+	public BevShop() {
+		orders = new ArrayList<Order>();
+	}
+	
+	@Override
+	public boolean isValidTime(int time) {
+		return (time >= MIN_TIME && MAX_TIME <= 23);
+	}
+
+	@Override
+	public int getMaxNumOfFruits() {
+		return MAX_FRUIT;
+	}
+
+	@Override
+	public int getMinAgeForAlcohol() {
+		return MIN_AGE_FOR_ALCOHOL;
+	}
+
+	@Override
+	public boolean isMaxFruit(int numOfFruits) {
+		return (numOfFruits > MAX_FRUIT);
+	}
+
+	@Override
+	public int getMaxOrderForAlcohol() {
+		return MAX_ORDER_FOR_ALCOHOL;
+	}
+
+	@Override
+	public boolean isEligibleForMore() {
+		return (numAlcoholDrinks > MAX_ORDER_FOR_ALCOHOL);
+	}
+
+	@Override
+	public int getNumOfAlcoholDrink() {
+		return numAlcoholDrinks;
+	}
+
+	@Override
+	public boolean isValidAge(int age) {
+		return (age > MIN_AGE_FOR_ALCOHOL);
+	}
+
+	@Override
+	public void startNewOrder(int time, Day day, String customerName, int customerAge) {
+		Customer customer = new Customer(customerName, customerAge);
+		Order order = new Order(time, day, customer);
+		orders.add(order);
+		numAlcoholDrinks = 0;
+		currentOrder = orders.indexOf(order);
+	}
+
+	@Override
+	public void processCoffeeOrder(String bevName, Size size, boolean extraShot, boolean extraSyrup) {
+		orders.get(currentOrder).addNewBeverage(bevName, size, extraShot, extraSyrup);
+		
+	}
+
+	@Override
+	public void processAlcoholOrder(String bevName, Size size) {
+		orders.get(currentOrder).addNewBeverage(bevName, size);
+		
+	}
+
+	@Override
+	public void processSmoothieOrder(String bevName, Size size, int numOfFruits, boolean addProtein) {
+		orders.get(numOfFruits).addNewBeverage(bevName, size);
+	}
+
+	@Override
+	public int findOrder(int orderNo) {
+		for (int i = 0; i < orders.size(); i++) {
+			if (orders.get(i).getOrderNum() == orderNo) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public double totalOrderPrice(int orderNo) {
+		int index = findOrder(orderNo);
+ 		return orders.get(index).calcOrderTotal();
+	}
+
+	@Override
+	public double totalMonthlySale() {
+		double price = 0.0;
+		for (int i = 0; i < orders.size(); i++) {
+			price += orders.get(i).calcOrderTotal();
+		}
+		return price;
+	}
+
+	@Override
+	public int totalNumOfMonthlyOrders() {
+		return orders.size();
+	}
+
+	@Override
+	public Order getCurrentOrder() {
+		return orders.get(currentOrder);
+	}
+
+	@Override
+	public Order getOrderAtIndex(int index) {
+		return orders.get(index);
+	}
+
+	@Override
+	//sorts by order num
+	public void sortOrders() {
+		int pos = 0;
+		for (int i = 0; i < orders.size()-1; i++) {
+			pos = i;
+			for (int j = i+1; j < orders.size(); j++) {
+				if (orders.get(j).getOrderNum() < orders.get(i).getOrderNum()) {
+					pos = j;
+				}
+				Order min = orders.get(pos);
+				orders.set(pos, orders.get(i));
+				orders.set(i, min);	
+				
+			}
+		}
+		
+	}
+	
+	
+}
