@@ -1,0 +1,87 @@
+/*
+ * Rose LeFlore
+ * CMSC 204 - Project 4
+ * Professor Thai
+ */
+
+public class CourseDBElement implements Comparable<CourseDBElement>{
+	
+	private String courseID;
+	private int crn;
+	private int credits;
+	private String roomNum;
+	private String instructor;
+	
+	private boolean valid;
+	
+	
+	public CourseDBElement(String courseID, int crn, int credits, String roomNum, String instructor) {
+		// checking if valid inputs
+		if ((crn > 99999 || crn < 10000) || (credits < 1 || credits > 4)) {
+			valid = false;
+		}
+		else {
+			valid = true;
+		}
+		this.courseID = courseID;
+		this.crn = crn;
+		this.credits = credits;
+		this.roomNum = roomNum;
+		this.instructor = instructor;
+	}
+	
+	
+	public CourseDBElement() {
+		courseID = "";
+		crn = 0;
+		credits = 0;
+		roomNum = "";
+		instructor = "";
+	}
+	
+	
+	public String getID(){
+		return courseID;
+	}
+	
+	public String getRoomNum() {
+		return roomNum;
+	}
+	
+	public String getInstructor() {
+		return instructor;
+	}
+	
+	public int getCRN() {
+		return crn;
+	}
+	
+	public int getCredits() {
+		return credits;
+	}
+	
+	public void setCRN(int crn) {
+		this.crn = crn;
+	}
+	
+	public boolean getValid() {
+		return valid;
+	}
+	
+	public void setValid(boolean bool) {
+		valid = bool;
+	}
+	
+	public String toString() {
+		return String.format("Course:%s CRN:%d Credits:%d Instructor:%s Room:%s", 
+				courseID, crn, credits, instructor, roomNum);
+	}
+	
+	
+	public int compareTo(CourseDBElement o) {
+		//comparing crn 
+		return  Integer.compare(this.crn, crn);
+	}
+	
+
+}
